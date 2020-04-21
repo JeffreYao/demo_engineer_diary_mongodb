@@ -1,0 +1,99 @@
+<br>
+{{!-- 目前尚未使用--}}
+<div class="row" id="search-bar">
+  <div class="col-12">
+    <form action="#">
+      <div class="input-group mb-3">
+        <input type="text" name="keyword" value="{{keyword}}" class="form-control" placeholder="輸入關鍵字"
+          aria-label="日誌名稱..." aria-describedby="search-button">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div>
+  <a href="/engineerLog/new" class="btn btn-primary" method="get">新增日誌</a>
+</div>
+<br>
+<div>
+  <form action="" method="post" id="timeSearch">
+    <p class=" mb-1">
+      <span class="text-secondary">
+        年份：
+      </span>
+      <input type="text" name="year" placeholder="輸入年份" value="{{yyyy}}">
+    </p>
+    <p class=" mb-1">
+      <span class="text-secondary">
+        月份：
+      </span>
+      <select name="month">
+        　<option value="1" {{#ifCond mm "==" "1"}} selected{{/ifCond}}>1月</option>
+        　<option value="2" {{#ifCond mm "==" "2"}} selected{{/ifCond}}>2月</option>
+        　<option value="3" {{#ifCond mm "==" "3"}} selected{{/ifCond}}>3月</option>
+        　<option value="4" {{#ifCond mm "==" "4"}} selected{{/ifCond}}>4月</option>
+        　<option value="5" {{#ifCond mm "==" "5"}} selected{{/ifCond}}>5月</option>
+        　<option value="6" {{#ifCond mm "==" "6"}} selected{{/ifCond}}>6月</option>
+        　<option value="7" {{#ifCond mm "==" "7"}} selected{{/ifCond}}>7月</option>
+        　<option value="8" {{#ifCond mm "==" "8"}} selected{{/ifCond}}>8月</option>
+        　<option value="9" {{#ifCond mm "==" "9"}} selected{{/ifCond}}>9月</option>
+        　<option value="10" {{#ifCond mm "==" "10"}} selected{{/ifCond}}>10月</option>
+        　<option value="11" {{#ifCond mm "==" "11"}} selected{{/ifCond}}>11月</option>
+        　<option value="12" {{#ifCond mm "==" "12"}} selected{{/ifCond}}>12月</option>
+      </select>
+    </p>
+    <button class=" btn btn-outline-secondary" type="submit" id="search">搜尋</button>
+    <button class="btn btn-primary" id="download">下載檔案</button>
+  </form>
+</div>
+
+
+<br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">編號</th>
+      <th scope="col">起訖時間</th>
+      <th scope="col">工作分類</th>
+      <th scope="col">敘述</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each log}}
+    <tr>
+      <th scope="row">{{addOne @index}}</th>
+      <td>{{dateFormat this.workDate}}</td>
+      <td>{{this.workCategory}}</td>
+      <td>{{this.workDescription}}</td>
+      <td>
+        <form action="/engineerLog/{{this._id}}/edit" method="get" style="display: inline;">
+          <button class="btn btn-outline-secondary" type="submit" id="edit">編輯</button>
+        </form>
+        <form action="/engineerLog/{{this._id}}/delete?_method=DELETE" method="post" style="display: inline;">
+          <button class="btn btn-outline-secondary" type="submit" id="delete">刪除</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<script>
+  const download = document.querySelector('#download');
+  const search = document.querySelector('#search');
+
+  download.addEventListener('click', changeActionDown);
+  search.addEventListener('click', changeActionSearch);
+
+  function changeActionSearch(event) {
+    document.getElementById("timeSearch").action = "/search?_method=POST";
+  };
+
+  function changeActionDown(event) {
+    document.getElementById("timeSearch").action = "/engineerLog/excel?_method=POST";
+  };
+</script>

@@ -1,0 +1,55 @@
+<h1 class="mb-1 restaurant-show-title">編輯工作日誌</h1>
+
+<div class="container" style="margin-top:5vh">
+  <div class="row">
+    {{#if message}}
+    <span class=" col-12 alert d-flex justify-content-center ">{{message}}</span>
+    {{/if}}
+
+    <div class="col-12 col-md-10 mx-auto">
+
+      <form action="/engineerLog/{{{logId._id}}}/edit?_method=PUT" method='post'>
+        <p class="mb-1">
+          <span class="text-secondary">
+            起訖時間：
+          </span>
+          <input type="date" name="workDate" placeholder="workDate" value="{{{dateFormat logId.workDate}}}">
+        </p>
+        <p class="mb-1">
+          <span class="text-secondary">
+            工作分類：
+          </span>
+          <select name="workCategory">
+            　<option value="公差" {{#ifCond logId.workCategory "==" "公差"}} selected{{/ifCond}}>公差</option>
+            　<option value="請假" {{#ifCond logId.workCategory "==" "請假"}} selected{{/ifCond}}>請假</option>
+            　<option value="稽核" {{#ifCond logId.workCategory "==" "稽核"}} selected{{/ifCond}}>稽核</option>
+            　<option value="機房設備" {{#ifCond logId.workCategory "==" "機房設備"}} selected{{/ifCond}}>機房設備</option>
+            　<option value="網路設定" {{#ifCond logId.workCategory "==" "網路設定"}} selected{{/ifCond}}>網路設定</option>
+            　<option value="資安設定" {{#ifCond logId.workCategory "==" "資安設定"}} selected{{/ifCond}}>資安設定</option>
+            　<option value="代管設定" {{#ifCond logId.workCategory "==" "代管設定"}} selected{{/ifCond}}>代管設定</option>
+            　<option value="系統設定" {{#ifCond logId.workCategory "==" "系統設定"}} selected{{/ifCond}}>系統設定</option>
+            　<option value="資料庫管理" {{#ifCond logId.workCategory "==" "資料庫管理"}} selected{{/ifCond}}>資料庫管理</option>
+            　<option value="帳密設定" {{#ifCond logId.workCategory "==" "帳密設定"}} selected{{/ifCond}}>帳密設定</option>
+            　<option value="網站管理" {{#ifCond logId.workCategory "==" "網站管理"}} selected{{/ifCond}}>網站管理</option>
+            　<option value="網站開發" {{#ifCond logId.workCategory "==" "網站開發"}} selected{{/ifCond}}>網站開發</option>
+            　<option value="交辦事項" {{#ifCond logId.workCategory "==" "交辦事項"}} selected{{/ifCond}}>交辦事項</option>
+            　<option value="參與會議" {{#ifCond logId.workCategory "==" "參與會議"}} selected{{/ifCond}}>參與會議</option>
+            　<option value="資料整理" {{#ifCond logId.workCategory "==" "資料整理"}} selected{{/ifCond}}>資料整理</option>
+            　<option value="環境打掃" {{#ifCond logId.workCategory "==" "環境打掃"}} selected{{/ifCond}}>環境打掃</option>
+            　<option value="教育訓練" {{#ifCond logId.workCategory "==" "教育訓練"}} selected{{/ifCond}}>教育訓練</option>
+            　<option value="天災" {{#ifCond logId.workCategory "==" "天災"}} selected{{/ifCond}}>天災</option>
+            　<option value="節慶" {{#ifCond logId.workCategory "==" "節慶"}} selected{{/ifCond}}>節慶</option>
+          </select>
+        </p>
+        <p class="mb-1">
+          <span class="text-secondary">
+            敘述：
+          </span>
+          <input type="text" name="workDescription" placeholder="workDescription" value="{{{logId.workDescription}}}">
+        </p>
+        <button class="btn btn-outline-secondary" type="submit">SAVE</button>
+        <a class="btn btn-outline-secondary" href="/">BACK</a>
+      </form>
+    </div>
+  </div>
+</div>

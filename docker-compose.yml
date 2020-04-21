@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: mongo:latest
+    restart: always
+    networks:
+        - mongodb
+  nodeweb:
+    depends_on:
+      - db
+    build: ./web
+    ports:
+      - "8000:8000"
+    command: npm start 
+    restart: always
+    networks:
+        - mongodb
+    
+networks:
+  mongodb:
+    driver: bridge
